@@ -20,4 +20,15 @@ router.post("/", async (req, res, next) => {
   }
 })
 
+router.delete("/:id", async (req, res, next) => {
+  const { id } = req.params
+
+  Users.remove(id)
+    .then(deleted => {
+      deleted
+        ? res.status(200).json(`The user with id ${id} was deleted`)
+        : res.status(400).json(`The user with id ${id} could not be found`)
+    })
+})
+
 module.exports = router
